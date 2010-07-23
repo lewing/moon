@@ -1217,7 +1217,7 @@ UIElement::RenderToIntermediate ()
 void
 UIElement::FrontToBack (Region *surface_region, List *render_list)
 {
-	if (surface_region->RectIn (GetSubtreeBounds().RoundOut()) == GDK_OVERLAP_RECTANGLE_OUT)
+	if (surface_region->RectIn (GetSubtreeBounds().RoundOut()) == CAIRO_REGION_OVERLAP_OUT)
 		return;
 
 	double local_opacity = GetOpacity ();

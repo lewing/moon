@@ -840,7 +840,15 @@ MoonWindowGtk::PaintToDrawable (GdkDrawable *drawable, GdkVisual *visual, GdkEve
 	
 	cairo_surface_set_device_offset (cairo_get_target (native), off_x, off_y);
 
-	Region *region = new Region (event->region);
+	//Region *region = new Region (event->region);
+	Region *region = new Region ();
+	int count = 0;
+	GdkRectangle *rects;
+	gdk_region_get_rectangles (event->region, &rects, &count);
+	while (count--) {
+		GdkRectangle c = rects[count];
+		region->Union (Rect (c.x, c.y, c.width, c.height));
+	}
 
 	if (use_image) {
 		image = CreateCairoContext (drawable, visual, false, area.width, area.height);
